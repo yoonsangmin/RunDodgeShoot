@@ -2,8 +2,6 @@
 
 # 👉개요
 
----
-
 ## 게임 개요
 
 - **게임 이름 : Run, Dodge, Shoot**
@@ -33,8 +31,6 @@
 
 # 👉특징
 
----
-
 ## 담당 업무
 
 **✔ 게임 기획**
@@ -50,8 +46,6 @@
 ✔ 설정한 레벨 디자인에 따라 끊임 없이 생성되는 맵과 장애물 구현
 
 # 👉참고 링크
-
----
 
 - **유튜브 : [https://www.youtube.com/watch?v=DevAbZc6Ofs](https://www.youtube.com/watch?v=DevAbZc6Ofs)**
 - **Git Hub :  [https://github.com/yoonsangmin/RunDodgeShoot](https://github.com/yoonsangmin/RunDodgeShoot)**
