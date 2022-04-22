@@ -91,17 +91,6 @@ public class PlayerControl : MonoBehaviour
     public GameObject powerUpEffect;    // 파워업 이펙트 효과
     public GameObject resultPanel;    // 결과 패널
 
-
-    // 음향
-    public AudioClip shootingSound;
-    public AudioClip gameOverSound;
-    private AudioSource audioSource;
-
-
-    public AudioClip hittedSound;
-    public AudioClip jumpSound;
-    private AudioSource fxaudioSource;
-
     private bool isGameOverSoundPlayed = false; // 게임 오버 사운드 1회 재생 플래그
 
 
@@ -135,10 +124,6 @@ public class PlayerControl : MonoBehaviour
 
         // 결과 화면 초기화
         resultPanel.SetActive(false);
-
-        // 음향 초기화
-        audioSource = gameObject.AddComponent<AudioSource>();
-        fxaudioSource = gameObject.AddComponent<AudioSource>();
     }
 
     private void check_landed() // 착지했는지 조사
@@ -305,9 +290,7 @@ public class PlayerControl : MonoBehaviour
                     velocity.y = Mathf.Sqrt(2.0f * -Physics.gravity.y * JUMP_HEIGHT_MAX);
 
                     // 점프 소리
-                    fxaudioSource.clip = jumpSound;
-                    fxaudioSource.volume = 0.8f;
-                    fxaudioSource.Play();
+                    SoundManager.Instance.Play("Jump");
 
                     //// '버튼이 떨어졌음을 나타내는 플래그'를 클리어한다.
                     //this.is_key_released = false;
@@ -354,9 +337,7 @@ public class PlayerControl : MonoBehaviour
                 if (this.key.shoot)
                 {
                     // 슈팅 사운드 재생
-                    audioSource.clip = shootingSound;
-                    audioSource.volume = 0.6f;
-                    audioSource.Play();
+                    SoundManager.Instance.Play("Shooting");
 
                     gameroot.shoot();
                 }
@@ -395,9 +376,7 @@ public class PlayerControl : MonoBehaviour
                     this.doMultiJump = false;
 
                     // 점프 소리
-                    fxaudioSource.clip = jumpSound;
-                    fxaudioSource.volume = 0.8f;
-                    fxaudioSource.Play();
+                    SoundManager.Instance.Play("Jump");
                 }
                 break;
 
@@ -405,9 +384,7 @@ public class PlayerControl : MonoBehaviour
                 // 게임오버 사운드 재생
                 if (!isGameOverSoundPlayed)
                 {
-                    audioSource.clip = gameOverSound;
-                    audioSource.volume = 1.0f;
-                    audioSource.Play();
+                    SoundManager.Instance.Play("GameOver");
                     isGameOverSoundPlayed = true;
                 }
 
@@ -567,9 +544,7 @@ public class PlayerControl : MonoBehaviour
                 this.next_step = STEP.MISS;
             }
 
-            fxaudioSource.clip = hittedSound;
-            fxaudioSource.volume = 0.8f;
-            fxaudioSource.Play();
+            SoundManager.Instance.Play("Hitted");
         }
 
         // 파워 아이템 먹으면

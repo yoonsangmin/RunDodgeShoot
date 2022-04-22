@@ -23,9 +23,6 @@ public class EnemyControl : ObjectControl
 
     private bool is_combo_reset = false;    // 콤보 끊었는지, 계속 끊지않게 해주는 플래그
 
-    // 음향
-    private SoundControl soundControl = null;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -36,9 +33,6 @@ public class EnemyControl : ObjectControl
 
         this.gameroot = GameObject.Find("GameRoot").GetComponent<GameRoot>();
         this.playercontrol = GameObject.Find("Player").GetComponent<PlayerControl>();
-
-        // 음향 초기화
-        this.soundControl = GameObject.Find("GameRoot").GetComponent<SoundControl>();
     }
 
     // Update is called once per frame
@@ -75,8 +69,8 @@ public class EnemyControl : ObjectControl
             Hp--;
             if (Hp == 0)
             {
-                this.soundControl.Killed();
-                this.soundControl.Hitted();
+                SoundManager.Instance.Play("EnemyKilled");
+                SoundManager.Instance.Play("Hitted");
                 this.gameroot.increase_combo();
                 //Destroy(this.gameObject);
 
@@ -96,7 +90,7 @@ public class EnemyControl : ObjectControl
             else
             {
                 Debug.Log("에너미 히티드");
-                this.soundControl.Hitted();
+                SoundManager.Instance.Play("Hitted");
             }
         }
     }

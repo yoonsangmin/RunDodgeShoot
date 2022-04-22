@@ -44,10 +44,6 @@ public class GameRoot : MonoBehaviour
     public Text comboText;
     public GameObject comboPanel;
 
-    // 음향
-    public AudioClip inGameSound;
-    AudioSource audioSource;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -59,14 +55,6 @@ public class GameRoot : MonoBehaviour
 
         
         this.start_x = playercontrol.transform.position.x;
-
-
-        // 음향 초기화
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = inGameSound;
-        audioSource.volume = 0.6f;
-        audioSource.loop = true;
-        audioSource.Play();
     }
 
     // Update is called once per frame

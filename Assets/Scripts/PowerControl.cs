@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class PowerControl : ObjectControl
 {
-    // 음향
-    private SoundControl soundControl = null;
     public GameObject powerObj;
 
     // Start is called before the first frame update
     void Start()
     {
-        // 음향 초기화
-        this.soundControl = GameObject.Find("GameRoot").GetComponent<SoundControl>();
+
     }
 
     // Update is called once per frame
@@ -25,7 +22,7 @@ public class PowerControl : ObjectControl
     {
         if (other.CompareTag("Player"))
         {
-            this.soundControl.PowerUp();
+            SoundManager.Instance.Play("PowerUp");
 
             Destroy(this.gameObject);
         }

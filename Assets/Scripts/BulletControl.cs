@@ -12,10 +12,6 @@ public class BulletControl : MonoBehaviour
     private PlayerControl Player;
     private GameRoot gameroot;
 
-    // 음향 관련
-    public AudioClip flyingSound;
-    AudioSource audioSource;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -23,10 +19,7 @@ public class BulletControl : MonoBehaviour
         this.gameroot = GameObject.FindGameObjectWithTag("GameRoot").GetComponent<GameRoot>();
 
         // 음향 초기화
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = flyingSound;
-        audioSource.volume = 0.6f;
-        audioSource.Play();
+        SoundManager.Instance.Play("BulletFlying");
     }
 
     // Update is called once per frame

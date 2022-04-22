@@ -51,8 +51,6 @@ public class TitleRoot : MonoBehaviour
 
     public List<Rank> ranking = new List<Rank>();
 
-    public float sound_volume = 1.0f;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -62,7 +60,7 @@ public class TitleRoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        AudioListener.volume = sound_volume;
+
     }
 
     public void UpdateRank(Rank rank)

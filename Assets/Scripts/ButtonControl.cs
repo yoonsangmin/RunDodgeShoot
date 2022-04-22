@@ -19,11 +19,11 @@ public class ButtonControl : MonoBehaviour
 
     public void ToTitleScene()
     {
-        SceneManager.LoadScene("TitleScene");
+        SceneManager.LoadScene(0);
     }
     public void ToGameScene()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(1);
     }
     public void ExitGame()
     {

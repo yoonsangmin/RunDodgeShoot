@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class BombControl : ObjectControl
 {
-    // 음향
-    private SoundControl soundControl = null;
-
     public GameObject particle;
 
     // Start is called before the first frame update
     void Start()
     {
-        // 음향 초기화
-        this.soundControl = GameObject.Find("GameRoot").GetComponent<SoundControl>();
+
     }
 
     // Update is called once per frame
@@ -26,7 +22,7 @@ public class BombControl : ObjectControl
     {
         if (other.CompareTag("Player"))
         {
-            this.soundControl.BombExplosion();
+            SoundManager.Instance.Play("BombExploded");
 
             GameObject go = Instantiate(particle, GameObject.FindGameObjectWithTag("GameRoot").transform);
             go.transform.position = this.transform.position;

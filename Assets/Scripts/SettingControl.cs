@@ -9,14 +9,10 @@ public class SettingControl : MonoBehaviour
     private PlayerControl playerControl;
     public GameObject settingPanel;
 
-    private Slider volumeSlider = null;
-
     // Start is called before the first frame update
     void Start()
     {
         playerControl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
-        volumeSlider = settingPanel.GetComponentInChildren<Slider>();
-        volumeSlider.value = TitleRoot.Instance.sound_volume;
         settingPanel.gameObject.SetActive(false);
     }
 
@@ -41,8 +37,6 @@ public class SettingControl : MonoBehaviour
             settingPanel.gameObject.SetActive(false);
             Time.timeScale = 1.0f;
         }
-
-        TitleRoot.Instance.sound_volume = volumeSlider.value;
     }
 
     public void ToTitle()
