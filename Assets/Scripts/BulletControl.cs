@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletControl : MonoBehaviour
+public class BulletControl : Poolable
 {
     private float Bullet_speed;
     public float bullet_speed { get { return Bullet_speed; } set { Bullet_speed = value; } }
@@ -13,12 +13,15 @@ public class BulletControl : MonoBehaviour
     private GameRoot gameroot;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Create(Component pool)
     {
+        base.Create(pool);
         this.Player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
         this.gameroot = GameObject.FindGameObjectWithTag("GameRoot").GetComponent<GameRoot>();
+    }
 
-        // 음향 초기화
+    public override void Spawn()
+    {
         SoundManager.Instance.Play("BulletFlying");
     }
 
@@ -31,8 +34,9 @@ public class BulletControl : MonoBehaviour
         this.GetComponent<Rigidbody>().velocity = velocity;
 
         // 거리가 멀어지면 지워버림
-        if(transform.position.x - Player.transform.position.x > range)
-            Destroy(this.gameObject);
+        if (transform.position.x - Player.transform.position.x > range)
+            Despawn();
+        //Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,13 +44,13 @@ public class BulletControl : MonoBehaviour
         if(other.gameObject.CompareTag("Enemy"))
         {
             gameroot.kill_enemy_score();
-            Destroy(this.gameObject);
+            Despawn();
+            // Destroy(this.gameObject);
         }
     }
 
-    // 화면에서 넘어가면 풀에 집어 넣고 액티브 상태 false
-    //private void OnBecameInvisible()
-    //{
-    //    Destroy(this.gameObject);
-    //}
+    public override void Despawn()
+    {
+        (pool as BulletPool).Despawn(this);
+    }
 }

@@ -12,8 +12,6 @@ public class GameRoot : MonoBehaviour
     private float bullet_speed = 30f; // 총알 속도, 플레이어 속도랑 더해서 사용함
     public Vector3 bullet_offset = new Vector3(1.0f, 0.0f, 0.0f);
 
-    public GameObject p_bullet;
-
     public float delta_score_timer = 0.0f; // 델타 스코어 (다음 점수) 시간
     public int delta_Score = 0; // 델타 스코어(다음 점수)
     
@@ -97,7 +95,8 @@ public class GameRoot : MonoBehaviour
 
     public void shoot()
     {
-        BulletControl bulletControl = Instantiate(p_bullet).GetComponent<BulletControl>();  // 총알 풀에서 총알 총알을 하나 사용함
+        // BulletControl bulletControl = Instantiate(p_bullet).GetComponent<BulletControl>();  // 총알 풀에서 총알 총알을 하나 사용함
+        BulletControl bulletControl = BulletPool.Instace.Spawn().GetComponent<BulletControl>();
         bulletControl.transform.position = playercontrol.transform.position + bullet_offset;    // 총알 위치를 오프셋으로 옮겨줌
         bulletControl.bullet_speed = bullet_speed;   // 총알 속도 넘겨줌
     }

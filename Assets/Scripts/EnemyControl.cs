@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyControl : ObjectControl
+public class EnemyControl : Poolable
 {
     public GameObject enemyModel;
 
@@ -22,6 +22,7 @@ public class EnemyControl : ObjectControl
     private PlayerControl playercontrol = null;
 
     private bool is_combo_reset = false;    // 콤보 끊었는지, 계속 끊지않게 해주는 플래그
+    private MapCreator mapCreator;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,9 @@ public class EnemyControl : ObjectControl
 
         this.gameroot = GameObject.Find("GameRoot").GetComponent<GameRoot>();
         this.playercontrol = GameObject.Find("Player").GetComponent<PlayerControl>();
+        mapCreator = FindObjectOfType<MapCreator>();
+
+        ChangeMaterial();
     }
 
     // Update is called once per frame
@@ -47,18 +51,34 @@ public class EnemyControl : ObjectControl
                 this.gameroot.end_combo();
             }
         }
-            
 
-        // TODO: 수정 필요
-        // 체력에 따라 머터리얼 변경
-        //if (MaterialsAccordingToHp.Length >= Hp)
-        //    if(mesh.material != MaterialsAccordingToHp[Hp - 1])
-        //    {
-        //        mesh.material = MaterialsAccordingToHp[Hp - 1];
-        //        leg1mesh.material = MaterialsAccordingToHp[Hp - 1];
-        //        leg2mesh.material = MaterialsAccordingToHp[Hp - 1];
-        //        leg3mesh.material = MaterialsAccordingToHp[Hp - 1];
-        //    }
+        if (this.mapCreator.isDelete(this.gameObject))
+        { // 카메라에게 나 안보이냐고 물어보고 안 보인다고 대답하면
+            Despawn();
+        }
+    }
+
+    public override void Spawn()
+    {
+        base.Spawn();
+        is_combo_reset = false;
+        enemyModel.GetComponent<Animator>().SetBool("IsDeath", false);
+        this.GetComponent<SphereCollider>().enabled = true;
+    }
+
+    //체력에 따라 머터리얼 변경
+    public void ChangeMaterial()
+    {
+        if (mesh == null)
+            return;
+        if (MaterialsAccordingToHp.Length >= Hp && Hp != 0)
+            if (mesh.material != MaterialsAccordingToHp[Hp - 1])
+            {
+                mesh.material = MaterialsAccordingToHp[Hp - 1];
+                leg1mesh.material = MaterialsAccordingToHp[Hp - 1];
+                leg2mesh.material = MaterialsAccordingToHp[Hp - 1];
+                leg3mesh.material = MaterialsAccordingToHp[Hp - 1];
+            }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -67,6 +87,7 @@ public class EnemyControl : ObjectControl
         if (other.gameObject.CompareTag("Bullet"))
         {
             Hp--;
+            ChangeMaterial();
             if (Hp == 0)
             {
                 SoundManager.Instance.Play("EnemyKilled");
@@ -78,14 +99,16 @@ public class EnemyControl : ObjectControl
                 enemyModel.GetComponent<Animator>().SetBool("IsDeath", true);
 
 
-                mesh.material.color = new Color(mesh.material.color.r, mesh.material.color.g, mesh.material.color.b, 0);
-                leg1mesh.material.color = new Color(leg1mesh.material.color.r, leg1mesh.material.color.g, leg1mesh.material.color.b, 0);
-                leg2mesh.material.color = new Color(leg2mesh.material.color.r, leg2mesh.material.color.g, leg2mesh.material.color.b, 0);
-                leg3mesh.material.color = new Color(leg3mesh.material.color.r, leg3mesh.material.color.g, leg3mesh.material.color.b, 0);
+                //// 투명하게 만들기
+                //mesh.material.color = new Color(mesh.material.color.r, mesh.material.color.g, mesh.material.color.b, 0);
+                //leg1mesh.material.color = new Color(leg1mesh.material.color.r, leg1mesh.material.color.g, leg1mesh.material.color.b, 0);
+                //leg2mesh.material.color = new Color(leg2mesh.material.color.r, leg2mesh.material.color.g, leg2mesh.material.color.b, 0);
+                //leg3mesh.material.color = new Color(leg3mesh.material.color.r, leg3mesh.material.color.g, leg3mesh.material.color.b, 0);
 
 
                 this.GetComponent<SphereCollider>().enabled = false;
-                Destroy(this.gameObject, 0.2f);
+                // Destroy(this.gameObject, 0.2f);
+                Invoke("Despawn", 0.2f);
             }
             else
             {
@@ -95,9 +118,10 @@ public class EnemyControl : ObjectControl
         }
     }
 
-    //// 화면에서 넘어가면 삭제함
-    //private void OnBecameInvisible()
-    //{
-    //    Destroy(this.gameObject);
-    //}
+    public override void Despawn()
+    {
+        CancelInvoke("Despawn");
+
+        (pool as EnemyPool).Despawn(this);
+    }
 }

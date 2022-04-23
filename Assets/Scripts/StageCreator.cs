@@ -55,7 +55,6 @@ public class StageCreator : MonoBehaviour
 
     private Vector3 last_obj_position; // 마지막에 생성한 오브젝트의 위치.
     private PlayerControl player = null; // 씬상의 Player를 보관.
-    private ObjectCreator obj_creator; // ObjectCreator를 보관.
     private GameRoot game_root; // 각종 게임 정보를 받아옴
 
     // 레인 Z 좌표
@@ -78,7 +77,6 @@ public class StageCreator : MonoBehaviour
     void Start()
     {
         this.player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
-        this.obj_creator = this.gameObject.GetComponent<ObjectCreator>();
         this.game_root = this.gameObject.GetComponent<GameRoot>();
         this.level_control = this.gameObject.GetComponent<LevelControl>();
         this.level_control.loadLevelData(this.level_data_text);
@@ -169,7 +167,8 @@ public class StageCreator : MonoBehaviour
                 else if (param <= enemy_hp1_spawn_rate + enemy_hp2_spawn_rate) hp = 2;
                 else hp = 3;
 
-                this.obj_creator.create_enemy(spawn_position, hp); // 이제까지의 코드에서 설정한 block_position을 건네준다.
+                // this.obj_creator.create_enemy(spawn_position, hp); // 이제까지의 코드에서 설정한 block_position을 건네준다.
+                (EnemyPool.Instace as EnemyPool).Spawn(spawn_position, hp);
                 break;
             case Type.NONE:
                 // 아무것도 생성 안함 - 톱 다음에
@@ -181,11 +180,13 @@ public class StageCreator : MonoBehaviour
 
                 if (param <= bomb_1_spawn_rate)
                 {
-                    this.obj_creator.create_bomb(spawn_position);
+                    // this.obj_creator.create_bomb(spawn_position);
+                    (BombPool.Instace as BombPool).Spawn(spawn_position);
                 }
                 else if (param <= bomb_1_spawn_rate + bomb_2_spawn_rate)
                 {
-                    this.obj_creator.create_bomb(spawn_position);
+                    // this.obj_creator.create_bomb(spawn_position);
+                    (BombPool.Instace as BombPool).Spawn(spawn_position);
 
                     // 두번 째 폭탄 생성
                     float next1 = 0, next2 = 0;
@@ -215,21 +216,26 @@ public class StageCreator : MonoBehaviour
                     else if (rand == 1)
                         spawn_position.z = next2;
 
-                    this.obj_creator.create_bomb(spawn_position);
+                    // this.obj_creator.create_bomb(spawn_position);
+                    (BombPool.Instace as BombPool).Spawn(spawn_position);
                 }
                 else
                 {
                     spawn_position.z = LANE1_Zpos;
-                    this.obj_creator.create_bomb(spawn_position);
+                    // this.obj_creator.create_bomb(spawn_position);
+                    (BombPool.Instace as BombPool).Spawn(spawn_position);
                     spawn_position.z = LANE2_Zpos;
-                    this.obj_creator.create_bomb(spawn_position);
+                    // this.obj_creator.create_bomb(spawn_position);
+                    (BombPool.Instace as BombPool).Spawn(spawn_position);
                     spawn_position.z = LANE3_Zpos;
-                    this.obj_creator.create_bomb(spawn_position);
+                    // this.obj_creator.create_bomb(spawn_position);
+                    (BombPool.Instace as BombPool).Spawn(spawn_position);
                 }
                 break;
             case Type.POWER:
                 // 파워 아이템 생성함
-                this.obj_creator.create_powerItem(spawn_position);
+                // this.obj_creator.create_powerItem(spawn_position);
+                (PowerPool.Instace as PowerPool).Spawn(spawn_position);
                 break;
         }
 

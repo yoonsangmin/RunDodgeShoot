@@ -174,8 +174,8 @@ public class PlayerControl : MonoBehaviour
                 next_step = STEP.MISS;
         }
 
-        this.get_input_without_aforeinput(); // 입력 정보 취득.
-        //this.get_input(); // 입력 정보 취득.
+        // this.get_input_without_aforeinput(); // 입력 정보 취득.
+        this.get_input(); // 입력 정보 취득.
 
         this.set_speed_and_inputdelay(); // 게임 진행에 따른 스피드를 prev 스피드에 넣어 놓음
         this.speed_delay_setting(); // 파워 업 아이템 적용 유무에 따라 prev 스피드 또는 맥스 스피드를 현재 스피드에 넣음
@@ -413,7 +413,8 @@ public class PlayerControl : MonoBehaviour
         this.input_timer += Time.deltaTime; // 경과 시간을 진행한다.
 
         // J, K 키가 눌렸으면 true를 대입.
-        this.aforekey.shoot |= Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.K);
+        // this.aforekey.shoot |= Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.K);
+        this.aforekey.shoot = true;
 
         this.key.jump = false;
         this.key.left = false;
