@@ -96,7 +96,7 @@ public class GameRoot : MonoBehaviour
     public void shoot()
     {
         // BulletControl bulletControl = Instantiate(p_bullet).GetComponent<BulletControl>();  // 총알 풀에서 총알 총알을 하나 사용함
-        BulletControl bulletControl = BulletPool.Instace.Spawn().GetComponent<BulletControl>();
+        BulletControl bulletControl = BulletPool.Instance.Spawn().GetComponent<BulletControl>();
         bulletControl.transform.position = playercontrol.transform.position + bullet_offset;    // 총알 위치를 오프셋으로 옮겨줌
         bulletControl.bullet_speed = bullet_speed;   // 총알 속도 넘겨줌
     }
@@ -163,6 +163,6 @@ public class GameRoot : MonoBehaviour
         r.distance = distance;
         r.combo = maxCombo;
         r.score = sumScore;
-        TitleRoot.Instance.UpdateRank(r);
+        SaveManager.Instance.UpdateRank(r);
     }
 }

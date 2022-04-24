@@ -10309,7 +10309,7 @@ GameObject:
   - component: {fileID: 2121314479}
   - component: {fileID: 2121314478}
   m_Layer: 0
-  m_Name: TItleRoot
+  m_Name: GameSaveManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10327,6 +10327,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 416655d63f096c64082cd508ff83685d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RankDataFileName: \Save\RankData.json
+  _rankData:
+    ranking: []
 --- !u!4 &2121314479
 Transform:
   m_ObjectHideFlags: 0

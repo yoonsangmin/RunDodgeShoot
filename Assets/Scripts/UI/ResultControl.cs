@@ -35,7 +35,7 @@ public class ResultControl : MonoBehaviour
 
         bonusScoreText.text = "최대 콤보 " + gameRoot.bonusScorePeriodCombo.ToString() + "당 " + gameRoot.bonusScorePerMaxCombo.ToString() + "점";
 
-        int rank = TitleRoot.Instance.GetRanking(gameRoot.sumScore) + 1;
+        int rank = SaveManager.Instance.GetRanking(gameRoot.sumScore) + 1;
 
         if (rank <= 5)
         {

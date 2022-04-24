@@ -15,27 +15,33 @@ public class SoundSlider : MonoBehaviour
     private void Start()
     {
         mixer = SoundManager.Instance.Mixer;
-        float volume;
+        float mixerVolume;
 
         if (MasterSlider != null)
         {
-            mixer.GetFloat("MasterVolume", out volume);
-            volume = Mathf.Pow(10, (volume / 20));
-            MasterSlider.value = volume;
-        }
+            //mixer.GetFloat("MasterVolume", out mixerVolume);
+            //mixerVolume = Mathf.Pow(10, (mixerVolume / 20));
+            //MasterSlider.value = mixerVolume;
 
-        if (SfxSlider != null)
-        {
-            mixer.GetFloat("SfxVolume", out volume);
-            volume = Mathf.Pow(10, (volume / 20));
-            SfxSlider.value = volume;
+            MasterSlider.value = SaveManager.Instance.gameData.masterVolume;
         }
 
         if (BgmSlider != null)
         {
-            mixer.GetFloat("BgmVolume", out volume);
-            volume = Mathf.Pow(10, (volume / 20));
-            BgmSlider.value = volume;
+            //mixer.GetFloat("BgmVolume", out mixerVolume);
+            //mixerVolume = Mathf.Pow(10, (mixerVolume / 20));
+            //BgmSlider.value = mixerVolume;
+
+            BgmSlider.value = SaveManager.Instance.gameData.bgmVolume;
+        }
+
+        if (SfxSlider != null)
+        {
+            //mixer.GetFloat("SfxVolume", out mixerVolume);
+            //mixerVolume = Mathf.Pow(10, (mixerVolume / 20));
+            //SfxSlider.value = mixerVolume;
+
+            SfxSlider.value = SaveManager.Instance.gameData.sfxVolume;
         }
     }
 
@@ -59,5 +65,12 @@ public class SoundSlider : MonoBehaviour
         if (val < 0.0001f)
             val = 0.0001f;
         mixer.SetFloat("SfxVolume", Mathf.Log10(val) * 20);
+    }
+
+    private void OnDisable()
+    {
+        SaveManager.Instance.gameData.masterVolume = MasterSlider.value;
+        SaveManager.Instance.gameData.bgmVolume = BgmSlider.value;
+        SaveManager.Instance.gameData.sfxVolume = SfxSlider.value;
     }
 }

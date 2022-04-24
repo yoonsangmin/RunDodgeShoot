@@ -5,7 +5,8 @@ using UnityEngine;
 public class BlockPool : ObjectPool<BlockControl>
 {
     private int block_count = 0; // 생성한 블록의 개수.
-    new protected int additionCount = 2;
+    // new 키워드를 쓰면 부모의 변수와 함수를 가려준다. 없어도 작동은 똑같지만 컴파일러와 다른 사람들에게 의도적임을 알려준다.
+    protected new int additionCount = 2;
 
     [SerializeField]
     private BlockControl[] blocks;

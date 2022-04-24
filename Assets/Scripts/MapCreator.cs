@@ -56,7 +56,7 @@ public class MapCreator : MonoBehaviour
         }
         block_position.x += BLOCK_WIDTH + BLANK_WIDTH; // 블록을 넓이 + 공백 넓이 만큼 오른쪽으로 이동.
                                                        // BlockCreator 스크립트의 createBlock()메소드에 생성을 지시!.
-        BlockPool.Instace.Spawn().transform.position = block_position;
+        BlockPool.Instance.Spawn().transform.position = block_position;
         this.last_block.position = block_position; // last_block의 위치를 이번 위치로 갱신.
         this.last_block.is_created = true; // 블록이 생성되었으므로 last_block의 is_created를 true로 설정.
     }

@@ -33,7 +33,7 @@ public class RankingPanel : MonoBehaviour
     {
         for (int i = 0; i < rankingText.Length; i++)
         {
-            if (TitleRoot.Instance.ranking.Count < i + 1)
+            if (SaveManager.Instance.gameData.ranking.Count < i + 1)
             {
                 rankingText[i].name.text = "-";
                 rankingText[i].distance.text = "-";
@@ -42,15 +42,15 @@ public class RankingPanel : MonoBehaviour
             }
             else
             {
-                rankingText[i].name.text = TitleRoot.Instance.ranking[i].name;
-                rankingText[i].distance.text = ToStringAndAddComma(TitleRoot.Instance.ranking[i].distance);
+                rankingText[i].name.text = SaveManager.Instance.gameData.ranking[i].name;
+                rankingText[i].distance.text = ToStringAndAddComma(SaveManager.Instance.gameData.ranking[i].distance);
                 
-                if (TitleRoot.Instance.ranking[i].combo == 0)
+                if (SaveManager.Instance.gameData.ranking[i].combo == 0)
                     rankingText[i].combo.text = "0";
                 else
-                    rankingText[i].combo.text = ToStringAndAddComma(TitleRoot.Instance.ranking[i].combo);
+                    rankingText[i].combo.text = ToStringAndAddComma(SaveManager.Instance.gameData.ranking[i].combo);
                 
-                rankingText[i].score.text = ToStringAndAddComma(TitleRoot.Instance.ranking[i].score);
+                rankingText[i].score.text = ToStringAndAddComma(SaveManager.Instance.gameData.ranking[i].score);
             }
         }
     }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public abstract class ObjectPool<T> : MonoBehaviour where T : Poolable
 {
-    private static ObjectPool<T> instace;
-    public static ObjectPool<T> Instace
+    private static ObjectPool<T> _instance;
+    public static ObjectPool<T> Instance
     {
         get
         {
-            return instace;
+            return _instance;
         }
     }
 
@@ -23,12 +23,12 @@ public abstract class ObjectPool<T> : MonoBehaviour where T : Poolable
 
     private void Awake()
     {
-        if (instace)
+        if (_instance)
         {
             Destroy(gameObject);
             return;
         }
-        instace = this;
+        _instance = this;
 
         for (int i = 0; i < allocateCount; i++)
         {

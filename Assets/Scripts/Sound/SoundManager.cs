@@ -6,19 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
-    private static SoundManager instance = null;
+    private static SoundManager _instance = null;
     public static SoundManager Instance
     {
         get
         {
-            if (!instance)
+            if (!_instance)
             {
-                instance = FindObjectOfType(typeof(SoundManager)) as SoundManager;
+                _instance = FindObjectOfType(typeof(SoundManager)) as SoundManager;
 
-                if (instance == null)
+                if (_instance == null)
                     Debug.Log("SoundManager does not exist");
             }
-            return instance;
+            return _instance;
         }
     }
 
@@ -37,16 +37,21 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
+        if (_instance != null)
         {
             Destroy(this.gameObject);
             return;
         }
-        
-        instance = this;
+
+        _instance = this;
         DontDestroyOnLoad(this.gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
         Initialize();
+    }
+
+    private void Start()
+    {
+        LoadVolumeData();
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -126,5 +131,20 @@ public class SoundManager : MonoBehaviour
             Debug.Log(path + " AudioClip is Missing!");
 
         return audioClip;
+    }
+
+    private void LoadVolumeData()
+    {
+        if (SaveManager.Instance.gameData.masterVolume < 0.0001f)
+            SaveManager.Instance.gameData.masterVolume = 0.0001f;
+        mixer.SetFloat("MasterVolume", Mathf.Log10(SaveManager.Instance.gameData.masterVolume) * 20);
+
+        if (SaveManager.Instance.gameData.bgmVolume < 0.0001f)
+            SaveManager.Instance.gameData.bgmVolume = 0.0001f;
+        mixer.SetFloat("BgmVolume", Mathf.Log10(SaveManager.Instance.gameData.bgmVolume) * 20);
+
+        if (SaveManager.Instance.gameData.sfxVolume < 0.0001f)
+            SaveManager.Instance.gameData.sfxVolume = 0.0001f;
+        mixer.SetFloat("SfxVolume", Mathf.Log10(SaveManager.Instance.gameData.sfxVolume) * 20);
     }
 }
