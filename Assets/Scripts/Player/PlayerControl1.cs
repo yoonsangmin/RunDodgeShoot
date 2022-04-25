@@ -127,7 +127,7 @@ public class PlayerControl1 : MonoBehaviour
 
                 if (this.key.down)
                 {
-                    gameroot.shoot();
+                    // gameroot.shoot();
                 }
 
                     this.transform.Translate(new Vector3(0.0f, 0.0f, Speed * Time.deltaTime));
@@ -137,7 +137,7 @@ public class PlayerControl1 : MonoBehaviour
 
                 if (this.key.up)
                 {
-                    gameroot.shoot();
+                    // gameroot.shoot();
                 }
 
                 this.transform.Translate(new Vector3(0.0f, 0.0f, Speed * Time.deltaTime));

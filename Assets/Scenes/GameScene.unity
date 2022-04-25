@@ -1694,7 +1694,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonControl: {fileID: 141993579}
   nameField: {fileID: 1265190091}
-  bullet_offset: {x: 1, y: 0, z: 0}
   delta_score_timer: 0
   delta_Score: 0
   sumScore: 0
@@ -1779,6 +1778,8 @@ MonoBehaviour:
   deltaScoreText: {fileID: 1261255085}
   comboText: {fileID: 1792293979}
   comboPanel: {fileID: 1546179251}
+  leftBoundary: 5
+  rightBoundary: -5
 --- !u!114 &752101469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1803,7 +1804,7 @@ MonoBehaviour:
   OBJ_NUMBER_TO_MAKE: 5
   OBJ_NUMBER_MIN: 2
   OBJ_NUMBER_MAX: 5
-  OBJ_LANE_TO_MAKE: 0
+  ObjZDamp: 0.5
   last_type: -1
   type: -1
   bomb_spawn_rate: 30
@@ -3260,6 +3261,7 @@ MonoBehaviour:
   SPEED_MIN: 13
   SPEED_MAX: 30
   SPEED_PREV: 0
+  zSpeed: 10
   JUMP_HEIGHT_MAX: 2
   NARAKU_HEIGHT: -5
   input_delay: 0.5
@@ -3273,6 +3275,7 @@ MonoBehaviour:
   next_update_position: 0
   powerUpEffect: {fileID: 1653731561}
   resultPanel: {fileID: 967626407}
+  bullet_offset: {x: 1, y: 0, z: 0}
 --- !u!1 &1226834298
 GameObject:
   m_ObjectHideFlags: 0

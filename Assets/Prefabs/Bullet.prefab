@@ -59,6 +59,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -83,6 +84,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!135 &6196563262169523081
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -94,7 +96,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.80979145
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6196563262169523080
 MonoBehaviour:
@@ -108,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ce2be0b3c03294fab159025216cda6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyingSound: {fileID: 8300000, guid: 0930e0974bdd4be47aacb5e3d230cdc0, type: 3}
+  pool: {fileID: 0}
 --- !u!54 &7988220140614541611
 Rigidbody:
   m_ObjectHideFlags: 0

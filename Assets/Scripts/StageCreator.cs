@@ -21,7 +21,10 @@ public class StageCreator : MonoBehaviour
     public int OBJ_NUMBER_MIN = 2;   // 오브젝트 연속으로 나올 개수 최솟값
     public int OBJ_NUMBER_MAX = 5;  // 오브젝트 연속으로 나올 개수 최댓값
 
-    public float OBJ_LANE_TO_MAKE;  // 오브젝트 생성될 레인
+    private float OBJ_ZPOS_TO_MAKE;  // 오브젝트 생성될 Z좌표
+    private float OBJ_PREV_ZPOS;  // 오브젝트 이전 Z좌표
+
+    public float ObjZDamp = 0.5f;
 
     private MapCreator mapCreator = null;
 
@@ -57,11 +60,6 @@ public class StageCreator : MonoBehaviour
     private PlayerControl player = null; // 씬상의 Player를 보관.
     private GameRoot game_root; // 각종 게임 정보를 받아옴
 
-    // 레인 Z 좌표
-    private float LANE1_Zpos; // 1레인 Z 좌표
-    private float LANE2_Zpos; // 2레인 Z 좌표
-    private float LANE3_Zpos; // 3레인 Z 좌표
-
     // 블럭 생성 위치
     private float obj_generate_x;
 
@@ -83,21 +81,18 @@ public class StageCreator : MonoBehaviour
 
         this.mapCreator = this.gameObject.GetComponent<MapCreator>();
 
-        // 레인 Z값 초기화
-        this.LANE1_Zpos = GameObject.Find("LANE1").transform.position.z;
-        this.LANE2_Zpos = GameObject.Find("LANE2").transform.position.z;
-        this.LANE3_Zpos = GameObject.Find("LANE3").transform.position.z;
-
         update_level(); // 최초 레벨 값 적용해 줌
 
         obj_generate_x = this.player.transform.position.x + (float)OBJ_INITIAL_POS; //  오브젝트 거리 0으로 만들고 오브젝트 오프셋 까지 생성함
         type = Type.ENEMY;
 
         // 오브젝트 위치 랜덤으로 정함
-        int rand = Random.Range(0, 3);
-        if (rand == 0) OBJ_LANE_TO_MAKE = LANE1_Zpos;
-        else if (rand == 1) OBJ_LANE_TO_MAKE = LANE2_Zpos;
-        else OBJ_LANE_TO_MAKE = LANE3_Zpos;
+        //int rand = Random.Range(0, 3);
+        //if (rand == 0) OBJ_ZPOS_TO_MAKE = LANE1_Zpos;
+        //else if (rand == 1) OBJ_ZPOS_TO_MAKE = LANE2_Zpos;
+        //else OBJ_ZPOS_TO_MAKE = LANE3_Zpos;
+
+        OBJ_ZPOS_TO_MAKE = Random.Range(game_root.rightBoundary + ObjZDamp, game_root.leftBoundary - ObjZDamp);
 
         while (obj_generate_x < this.player.transform.position.x + (float)OBJ_OFFSET)
         {
@@ -109,28 +104,30 @@ public class StageCreator : MonoBehaviour
                 // 만들 오브젝트에 따라서 몇개 연속으로 나올지 선택해 줌
                 select_obj_number();
 
-                rand = Random.Range(0, 2);
-                if (OBJ_LANE_TO_MAKE == LANE1_Zpos)
-                {
-                    if (rand == 0)
-                        OBJ_LANE_TO_MAKE = LANE2_Zpos;
-                    else
-                        OBJ_LANE_TO_MAKE = LANE3_Zpos;
-                }
-                else if (OBJ_LANE_TO_MAKE == LANE2_Zpos)
-                {
-                    if (rand == 0)
-                        OBJ_LANE_TO_MAKE = LANE1_Zpos;
-                    else
-                        OBJ_LANE_TO_MAKE = LANE3_Zpos;
-                }
-                else if (OBJ_LANE_TO_MAKE == LANE3_Zpos)
-                {
-                    if (rand == 0)
-                        OBJ_LANE_TO_MAKE = LANE1_Zpos;
-                    else
-                        OBJ_LANE_TO_MAKE = LANE2_Zpos;
-                }
+                //rand = Random.Range(0, 2);
+                //if (OBJ_ZPOS_TO_MAKE == LANE1_Zpos)
+                //{
+                //    if (rand == 0)
+                //        OBJ_ZPOS_TO_MAKE = LANE2_Zpos;
+                //    else
+                //        OBJ_ZPOS_TO_MAKE = LANE3_Zpos;
+                //}
+                //else if (OBJ_ZPOS_TO_MAKE == LANE2_Zpos)
+                //{
+                //    if (rand == 0)
+                //        OBJ_ZPOS_TO_MAKE = LANE1_Zpos;
+                //    else
+                //        OBJ_ZPOS_TO_MAKE = LANE3_Zpos;
+                //}
+                //else if (OBJ_ZPOS_TO_MAKE == LANE3_Zpos)
+                //{
+                //    if (rand == 0)
+                //        OBJ_ZPOS_TO_MAKE = LANE1_Zpos;
+                //    else
+                //        OBJ_ZPOS_TO_MAKE = LANE2_Zpos;
+                //}
+
+                OBJ_ZPOS_TO_MAKE = Random.Range(game_root.rightBoundary + ObjZDamp, game_root.leftBoundary - ObjZDamp);
             }
 
 
@@ -151,7 +148,7 @@ public class StageCreator : MonoBehaviour
 
         spawn_position.x = obj_generate_x;
         // 블록의 Y위치는 앞에서 정한 Floor 높이로.
-        spawn_position.z = OBJ_LANE_TO_MAKE;
+        spawn_position.z = OBJ_ZPOS_TO_MAKE;
         spawn_position.y = 1.0f;
 
         switch (this.type)
@@ -171,66 +168,66 @@ public class StageCreator : MonoBehaviour
                 (EnemyPool.Instance as EnemyPool).Spawn(spawn_position, hp);
                 break;
             case Type.NONE:
-                // 아무것도 생성 안함 - 톱 다음에
+                // 아무것도 생성 안함
                 break;
             case Type.BOMB:
                 // 폭탄 생성함
-                sum_rate = bomb_1_spawn_rate + bomb_2_spawn_rate + bomb_3_spawn_rate;
-                param = Random.Range(1, sum_rate);
+                //sum_rate = bomb_1_spawn_rate + bomb_2_spawn_rate + bomb_3_spawn_rate;
+                //param = Random.Range(1, sum_rate);
 
-                if (param <= bomb_1_spawn_rate)
-                {
-                    // this.obj_creator.create_bomb(spawn_position);
-                    (BombPool.Instance as BombPool).Spawn(spawn_position);
-                }
-                else if (param <= bomb_1_spawn_rate + bomb_2_spawn_rate)
-                {
-                    // this.obj_creator.create_bomb(spawn_position);
-                    (BombPool.Instance as BombPool).Spawn(spawn_position);
+                (BombPool.Instance as BombPool).Spawn(spawn_position);
 
-                    // 두번 째 폭탄 생성
-                    float next1 = 0, next2 = 0;
+                //if (param <= bomb_1_spawn_rate)
+                //{
+                //    (BombPool.Instance as BombPool).Spawn(spawn_position);
+                //}
+                //else if (param <= bomb_1_spawn_rate + bomb_2_spawn_rate)
+                //{
+                //    (BombPool.Instance as BombPool).Spawn(spawn_position);
 
-                    for (int i = 0; i < 3; i++)
-                    {
-                        float temp = 0;
-                        if (i == 0) temp = LANE1_Zpos;
-                        else if (i == 1) temp = LANE2_Zpos;
-                        else if (i == 2) temp = LANE3_Zpos;
+                //    // 두번 째 폭탄 생성
+                //    float next1 = 0, next2 = 0;
 
-                        if (next1 == 0)
-                        {
-                            if (temp != OBJ_LANE_TO_MAKE)
-                                next1 = temp;
-                        }
-                        else if (next2 == 0)
-                        {
-                            if (temp != OBJ_LANE_TO_MAKE)
-                                next2 = temp;
-                        }
-                    }
+                //    for (int i = 0; i < 3; i++)
+                //    {
+                //        float temp = 0;
+                //        if (i == 0) temp = LANE1_Zpos;
+                //        else if (i == 1) temp = LANE2_Zpos;
+                //        else if (i == 2) temp = LANE3_Zpos;
 
-                    int rand = Random.Range(0, 2);
-                    if (rand == 0)
-                        spawn_position.z = next1;
-                    else if (rand == 1)
-                        spawn_position.z = next2;
+                //        if (next1 == 0)
+                //        {
+                //            if (temp != OBJ_ZPOS_TO_MAKE)
+                //                next1 = temp;
+                //        }
+                //        else if (next2 == 0)
+                //        {
+                //            if (temp != OBJ_ZPOS_TO_MAKE)
+                //                next2 = temp;
+                //        }
+                //    }
 
-                    // this.obj_creator.create_bomb(spawn_position);
-                    (BombPool.Instance as BombPool).Spawn(spawn_position);
-                }
-                else
-                {
-                    spawn_position.z = LANE1_Zpos;
-                    // this.obj_creator.create_bomb(spawn_position);
-                    (BombPool.Instance as BombPool).Spawn(spawn_position);
-                    spawn_position.z = LANE2_Zpos;
-                    // this.obj_creator.create_bomb(spawn_position);
-                    (BombPool.Instance as BombPool).Spawn(spawn_position);
-                    spawn_position.z = LANE3_Zpos;
-                    // this.obj_creator.create_bomb(spawn_position);
-                    (BombPool.Instance as BombPool).Spawn(spawn_position);
-                }
+                //    int rand = Random.Range(0, 2);
+                //    if (rand == 0)
+                //        spawn_position.z = next1;
+                //    else if (rand == 1)
+                //        spawn_position.z = next2;
+
+                //    // this.obj_creator.create_bomb(spawn_position);
+                //    (BombPool.Instance as BombPool).Spawn(spawn_position);
+                //}
+                //else
+                //{
+                //    spawn_position.z = LANE1_Zpos;
+                //    // this.obj_creator.create_bomb(spawn_position);
+                //    (BombPool.Instance as BombPool).Spawn(spawn_position);
+                //    spawn_position.z = LANE2_Zpos;
+                //    // this.obj_creator.create_bomb(spawn_position);
+                //    (BombPool.Instance as BombPool).Spawn(spawn_position);
+                //    spawn_position.z = LANE3_Zpos;
+                //    // this.obj_creator.create_bomb(spawn_position);
+                //    (BombPool.Instance as BombPool).Spawn(spawn_position);
+                //}
                 break;
             case Type.POWER:
                 // 파워 아이템 생성함
@@ -267,36 +264,40 @@ public class StageCreator : MonoBehaviour
             // 같은 오브젝트가 연속으로 나오면 높이를 바꿔줌
             if (last_type == type)
             {
-                int rand = Random.Range(0, 2);
-                if (OBJ_LANE_TO_MAKE == LANE1_Zpos)
-                {
-                    if(rand == 0)
-                        OBJ_LANE_TO_MAKE = LANE2_Zpos;
-                    else
-                        OBJ_LANE_TO_MAKE = LANE3_Zpos;
-                }
-                else if(OBJ_LANE_TO_MAKE == LANE2_Zpos)
-                {
-                    if (rand == 0)
-                        OBJ_LANE_TO_MAKE = LANE1_Zpos;
-                    else
-                        OBJ_LANE_TO_MAKE = LANE3_Zpos;
-                }
-                else if (OBJ_LANE_TO_MAKE == LANE3_Zpos)
-                {
-                    if (rand == 0)
-                        OBJ_LANE_TO_MAKE = LANE1_Zpos;
-                    else
-                        OBJ_LANE_TO_MAKE = LANE2_Zpos;
-                }
+                //int rand = Random.Range(0, 2);
+                //if (OBJ_ZPOS_TO_MAKE == LANE1_Zpos)
+                //{
+                //    if(rand == 0)
+                //        OBJ_ZPOS_TO_MAKE = LANE2_Zpos;
+                //    else
+                //        OBJ_ZPOS_TO_MAKE = LANE3_Zpos;
+                //}
+                //else if(OBJ_ZPOS_TO_MAKE == LANE2_Zpos)
+                //{
+                //    if (rand == 0)
+                //        OBJ_ZPOS_TO_MAKE = LANE1_Zpos;
+                //    else
+                //        OBJ_ZPOS_TO_MAKE = LANE3_Zpos;
+                //}
+                //else if (OBJ_ZPOS_TO_MAKE == LANE3_Zpos)
+                //{
+                //    if (rand == 0)
+                //        OBJ_ZPOS_TO_MAKE = LANE1_Zpos;
+                //    else
+                //        OBJ_ZPOS_TO_MAKE = LANE2_Zpos;
+                //}
+
+                OBJ_ZPOS_TO_MAKE = Random.Range(game_root.rightBoundary + ObjZDamp, game_root.leftBoundary - ObjZDamp);
             }
             // 다른 오브젝트일 경우 위치를 랜덤으로 정함
             else
             {
-                int rand = Random.Range(0, 3);
-                if(rand == 0) OBJ_LANE_TO_MAKE = LANE1_Zpos;
-                else if (rand == 1) OBJ_LANE_TO_MAKE = LANE2_Zpos;
-                else OBJ_LANE_TO_MAKE = LANE3_Zpos;
+                //int rand = Random.Range(0, 3);
+                //if(rand == 0) OBJ_ZPOS_TO_MAKE = LANE1_Zpos;
+                //else if (rand == 1) OBJ_ZPOS_TO_MAKE = LANE2_Zpos;
+                //else OBJ_ZPOS_TO_MAKE = LANE3_Zpos;
+
+                OBJ_ZPOS_TO_MAKE = Random.Range(game_root.rightBoundary + ObjZDamp, game_root.leftBoundary - ObjZDamp);
             }
         }
 
@@ -358,7 +359,7 @@ public class StageCreator : MonoBehaviour
     private void select_next_obj()
     {
         switch (this.last_type)
-        { // Player의 현재 상태로 분기.
+        {
             case Type.BOMB:
                 type = Type.NONE;
                 break;
@@ -373,7 +374,7 @@ public class StageCreator : MonoBehaviour
                 {
                     // 총 이동거리에 따라 오브젝트 생성 확률이 달라짐
 
-                    // 확률에 따라 몬스터 또는 톱날이 나옴
+                    // 확률에 따라 몬스터 또는 폭탄이 나옴
                     int bomb_percentage = Random.Range(1, 100);
 
                     if (bomb_percentage <= bomb_spawn_rate)

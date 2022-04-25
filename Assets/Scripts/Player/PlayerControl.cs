@@ -18,6 +18,7 @@ public class PlayerControl : MonoBehaviour
     public float SPEED_MAX = 30.0f; // 속도의 최댓값.
     public float SPEED_PREV; // 이전 속도값
 
+    public float zSpeed = 10.0f;
 
     public float JUMP_HEIGHT_MAX = 2.0f; // 점프 높이.
     //public static float JUMP_KEY_RELEASE_REDUCE = 0.5f; // 점프 후의 감속도.
@@ -69,13 +70,6 @@ public class PlayerControl : MonoBehaviour
     private int left_multiJumpCount = 1; // 다중 점프 몇 번 했는지
     private bool doMultiJump; // 다중 점프 플래그
 
-
-    private int playerLane;     // 현재 플레이어 레인
-
-    private float LANE1_Zpos;   // 레인 1 Z 포지션
-    private float LANE2_Zpos;   // 레인 2 Z 포지션
-    private float LANE3_Zpos;   // 레인 3 Z 포지션
-
     public bool is_power_upped = false; // 파워 업 되었는지
 
     private float bonusTimeWhenGetPowerUpItem = 5f;
@@ -93,6 +87,8 @@ public class PlayerControl : MonoBehaviour
 
     private bool isGameOverSoundPlayed = false; // 게임 오버 사운드 1회 재생 플래그
 
+    private float bullet_speed = 30f; // 총알 속도, 플레이어 속도랑 더해서 사용함
+    public Vector3 bullet_offset = new Vector3(1.0f, 0.0f, 0.0f);
 
     // 끼인거 확인
     private Vector3 prevPos;
@@ -102,14 +98,6 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         this.step = STEP.JUMP;
-
-        // 플레이어 시작 레인 설정
-        playerLane = 2;
-
-        // 레인 Z값 초기화
-        this.LANE1_Zpos = GameObject.Find("LANE1").transform.position.z;
-        this.LANE2_Zpos = GameObject.Find("LANE2").transform.position.z;
-        this.LANE3_Zpos = GameObject.Find("LANE3").transform.position.z;
 
         // 게임 루트 가져옴
         this.gameroot = GameObject.Find("GameRoot").GetComponent<GameRoot>();
@@ -189,22 +177,22 @@ public class PlayerControl : MonoBehaviour
         //Debug.Log(step_timer);
         //Debug.Log(step);
 
-        // 플레이어 현재 위치 저장
-        Vector3 curPos = this.transform.position;
-        switch (playerLane)
-        {
-            case 1:
-                curPos.z = LANE1_Zpos;
-                break;
-            case 2:
-                curPos.z = LANE2_Zpos;
-                break;
-            case 3:
-                curPos.z = LANE3_Zpos;
-                break;
-        }
-        // 플레이어 레인 값에 따라 플레이어 Z값을 바꾼 후 적용해줌
-        this.transform.position = curPos;
+        //// 플레이어 현재 위치 저장
+        //Vector3 curPos = this.transform.position;
+        //switch (playerLane)
+        //{
+        //    case 1:
+        //        curPos.z = LANE1_Zpos;
+        //        break;
+        //    case 2:
+        //        curPos.z = LANE2_Zpos;
+        //        break;
+        //    case 3:
+        //        curPos.z = LANE3_Zpos;
+        //        break;
+        //}
+        //// 플레이어 레인 값에 따라 플레이어 Z값을 바꾼 후 적용해줌
+        //this.transform.position = curPos;
 
         switch (this.step)
         {
@@ -310,11 +298,11 @@ public class PlayerControl : MonoBehaviour
                            // 가속도 없이 속도를 고정시킴
                 velocity.x = Speed;
 
+                // 플레이어 현재 위치
+                Vector3 curPos = this.transform.position;
                 // 플레이어 튕기는 거 예방
                 // 플레이어 현재 위치 저장
                 curPos.y = 1.0f;
-                // 플레이어 위치 값에 y값을 고정함
-                this.transform.position = curPos;
 
                 //velocity.x += PlayerControl.ACCELERATION * Time.deltaTime;
                 //// 속도가 최고 속도 제한을 넘으면.
@@ -328,18 +316,25 @@ public class PlayerControl : MonoBehaviour
 
                 if (this.key.left)
                 {
-                    playerLane = (playerLane - 1 == 0) ? 1 : playerLane - 1;
+                    // playerLane = (playerLane - 1 == 0) ? 1 : playerLane - 1;
+                    curPos.z += zSpeed * Time.deltaTime;
+                    if (curPos.z > gameroot.leftBoundary)
+                        curPos.z = gameroot.leftBoundary;
                 }
                 if (this.key.right)
                 {
-                    playerLane = (playerLane + 1 == 4) ? 3 : playerLane + 1;
+                    // playerLane = (playerLane + 1 == 4) ? 3 : playerLane + 1;
+                    curPos.z -= zSpeed * Time.deltaTime;
+                    if (curPos.z < gameroot.rightBoundary)
+                        curPos.z = gameroot.rightBoundary;
                 }
+
+                // 플레이어 위치 값에 y값을 고정함
+                this.transform.position = curPos;
+
                 if (this.key.shoot)
                 {
-                    // 슈팅 사운드 재생
-                    SoundManager.Instance.Play("Shooting");
-
-                    gameroot.shoot();
+                    shoot();
                 }
                 break;
             case STEP.JUMP: // 점프 중일 때.
@@ -417,14 +412,14 @@ public class PlayerControl : MonoBehaviour
         this.aforekey.shoot = true;
 
         this.key.jump = false;
-        this.key.left = false;
-        this.key.right = false;
+        //this.key.left = false;
+        //this.key.right = false;
         this.key.shoot = false;
 
         // A 키가 눌렸으면 true를 대입.
-        this.key.left = Input.GetKeyDown(KeyCode.A);
+        this.key.left = Input.GetKey(KeyCode.A);
         // D 키가 눌렸으면 true를 대입.
-        this.key.right = Input.GetKeyDown(KeyCode.D);
+        this.key.right = Input.GetKey(KeyCode.D);
         // Space 키가 눌렸으면 true를 대입.
         this.key.jump = Input.GetKeyDown(KeyCode.Space);
 
@@ -589,5 +584,15 @@ public class PlayerControl : MonoBehaviour
             Debug.Log(input_delay_PREV);
             next_update_position += update_distance;
         }
+    }
+
+    public void shoot()
+    {
+        // 슈팅 사운드 재생
+        SoundManager.Instance.Play("Shooting");
+        // BulletControl bulletControl = Instantiate(p_bullet).GetComponent<BulletControl>();  // 총알 풀에서 총알 총알을 하나 사용함
+        BulletControl bulletControl = BulletPool.Instance.Spawn().GetComponent<BulletControl>();
+        bulletControl.transform.position = this.transform.position + bullet_offset;    // 총알 위치를 오프셋으로 옮겨줌
+        bulletControl.bullet_speed = bullet_speed;   // 총알 속도 넘겨줌
     }
 }
