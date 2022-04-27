@@ -411,18 +411,28 @@ public class PlayerControl : MonoBehaviour
         // this.aforekey.shoot |= Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.K);
         this.aforekey.shoot = true;
 
-        this.key.jump = false;
-        //this.key.left = false;
-        //this.key.right = false;
         this.key.shoot = false;
 
-        // A 키가 눌렸으면 true를 대입.
-        this.key.left = Input.GetKey(KeyCode.A);
-        // D 키가 눌렸으면 true를 대입.
-        this.key.right = Input.GetKey(KeyCode.D);
-        // Space 키가 눌렸으면 true를 대입.
-        this.key.jump = Input.GetKeyDown(KeyCode.Space);
+        this.key.jump = false;
 
+
+
+//#if UNITY_EDITOR
+//        // A 키가 눌렸으면 true를 대입.
+//        this.key.left = Input.GetKey(KeyCode.A);
+//        // D 키가 눌렸으면 true를 대입.
+//        this.key.right = Input.GetKey(KeyCode.D);
+//        // Space 키가 눌렸으면 true를 대입.
+//        this.key.jump = Input.GetKeyDown(KeyCode.Space);
+//#endif
+
+//#if UNITY_ANDROID
+        this.key.left = this.aforekey.left;
+        this.key.right = this.aforekey.right;
+        this.key.jump = this.aforekey.jump;
+
+        this.aforekey.jump = false;
+//#endif
 
         // 총알 만 입력 시간 기다림
         if (this.input_timer > this.input_delay)
@@ -594,5 +604,30 @@ public class PlayerControl : MonoBehaviour
         BulletControl bulletControl = BulletPool.Instance.Spawn().GetComponent<BulletControl>();
         bulletControl.transform.position = this.transform.position + bullet_offset;    // 총알 위치를 오프셋으로 옮겨줌
         bulletControl.bullet_speed = bullet_speed;   // 총알 속도 넘겨줌
+    }
+
+    public void OnJumpButtonClick()
+    {
+        this.aforekey.jump = true;
+    }
+
+    public void OnLeftButtonDown()
+    {
+        this.aforekey.left = true;
+    }
+
+    public void OnRightButtonDown()
+    {
+        this.aforekey.right = true;
+    }
+
+    public void OnLeftButtonUp()
+    {
+        this.aforekey.left = false;
+    }
+
+    public void OnRightButtonUp()
+    {
+        this.aforekey.right = false;
     }
 }

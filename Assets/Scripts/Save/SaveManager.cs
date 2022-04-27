@@ -43,7 +43,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    private string GameDataFileName = @"\Save\GameData.json";
+    private string GameDataFileName = @"\GameData.json";
 
     private GameData _gameData;
     public GameData gameData
@@ -121,9 +121,7 @@ public class SaveManager : MonoBehaviour
     public void LoadRank()
     {
         string filePath = Application.dataPath + GameDataFileName;
-
-        Debug.Log(filePath);
-
+        
         if (File.Exists(filePath))
         {
             Debug.Log("Load Success");
@@ -142,6 +140,7 @@ public class SaveManager : MonoBehaviour
     {
         string ToJsonData = JsonUtility.ToJson(gameData);
         string filePath = Application.dataPath + GameDataFileName;
+
         File.WriteAllText(filePath, ToJsonData);
         Debug.Log("Save Complete");
     }

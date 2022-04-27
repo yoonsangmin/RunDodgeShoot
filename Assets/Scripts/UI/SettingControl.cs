@@ -9,6 +9,8 @@ public class SettingControl : MonoBehaviour
     private PlayerControl playerControl;
     public GameObject settingPanel;
 
+    private bool stopButton = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,11 @@ public class SettingControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && playerControl.step != PlayerControl.STEP.MISS)
+//#if UNITY_EDITOR
+//        stopButton |= Input.GetKeyDown(KeyCode.Escape);
+//#endif
+
+        if (stopButton && playerControl.step != PlayerControl.STEP.MISS)
         {
             if (settingPanel.gameObject.activeSelf == false)
             {
@@ -31,12 +37,19 @@ public class SettingControl : MonoBehaviour
                 settingPanel.gameObject.SetActive(false);
                 Time.timeScale = 1.0f;
             }
+
+            stopButton = false;
         }
         else if(playerControl.step == PlayerControl.STEP.MISS)
         {
             settingPanel.gameObject.SetActive(false);
             Time.timeScale = 1.0f;
         }
+    }
+
+    public void OnStopButtonClick()
+    {
+        stopButton = true;
     }
 
     public void ToTitle()
