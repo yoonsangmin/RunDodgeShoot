@@ -1,17 +1,19 @@
 # Run, Dodge, Shoot
 
-# 👉개요
+## 👉Summary
 
-## 게임 개요
+**[Game title: Run, Dodge, Shoot]** </br>
+**[Genre: Running Action Game]** </br>
+**[Tools: Unity 3D]** </br>
+**[Purpose: For experiencing level design]** </br>
+**[Period: May.2021 - June.2021]** </br>
+**[Head count: 1]** </br>
 
-- **게임 이름 : Run, Dodge, Shoot**
-- **장르 : 러닝 액션 게임**
-- **사용 도구 : Unity 3D**
-- **목적 : 레벨 테스트와 레벨 디자인 경험**
-- **제작 기간 : 2021.05 - 2021.06**
-- **제작 인원 : 1명**
+## 👉Implementations
 
-## 게임 이미지
+
+
+## 👉Game Screenshot
 
 ![1.png](Images/1.png)
 
@@ -29,27 +31,7 @@
 
 ![8.png](Images/8.png)
 
-# 👉특징
-
-## 담당 업무
-
-**✔ 게임 기획**
-
-**✔ 게임 시스템 구현**
-
-**✔ 레벨 테스트 및 디자인 개선**
-
-## 구현 내용
-
-✔ 열거체를 사용한 간단한 상태 패턴 사용 상태에 따른 플레이어 조작 구현
-
-✔ 설정한 레벨 디자인에 따라 끊임 없이 생성되는 맵과 장애물 구현
-
-# 👉참고 링크
+## 👉Game Video
 
 - **유튜브 : [https://www.youtube.com/playlist?list=PLjSAhx-L2n8focZJGNkHP948APNj2nw7A](https://www.youtube.com/playlist?list=PLjSAhx-L2n8focZJGNkHP948APNj2nw7A)**
-- **Git Hub :  [https://github.com/yoonsangmin/RunDodgeShoot](https://github.com/yoonsangmin/RunDodgeShoot)**
-
-## 영상
-
 [![Run, Dodge, Shoot](https://img.youtube.com/vi/DevAbZc6Ofs/0.jpg)](https://www.youtube.com/watch?v=DevAbZc6Ofs "Run, Dodge, Shoot")
