@@ -11,6 +11,15 @@
 
 ## 👉Implementations
 
+####✔ Player Control: I made enum that represent player's status and I implemented their behavior in the update function using switch statement.
+* Code Location: https://github.com/yoonsangmin/RunDodgeShoot/blob/main/Assets/Scripts/Player/PlayerControl.cs
+
+####✔ Level Control: I implemented level control class to parse text file and set level values.
+* Code Location: https://github.com/yoonsangmin/RunDodgeShoot/blob/main/Assets/Scripts/LevelControl/LevelControl.cs
+
+####✔ Stage Creater: I implemented stage creator that create map and object contantly with level data.
+* Code Location:
+
 
 
 ## 👉Game Screenshot
