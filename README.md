@@ -10,7 +10,7 @@
 **[Head count :  1]**  
 
 ## 👉Implementations
-
+<br/>
 ✔ Player Control: I made an enum that represents player's status and I implemented their behavior in the update function using switch statement.
 * Code Location: https://github.com/yoonsangmin/RunDodgeShoot/blob/main/Assets/Scripts/Player/PlayerControl.cs
 <br/><br/>
