@@ -58,7 +58,7 @@ public class SaveManager : MonoBehaviour
             return _gameData;
         }
     }
-
+    
     private void Awake()
     {
         if (_instance == null)

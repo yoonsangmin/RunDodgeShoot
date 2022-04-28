@@ -77,7 +77,7 @@ public class StageCreator : MonoBehaviour
         this.player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
         this.game_root = this.gameObject.GetComponent<GameRoot>();
         this.level_control = this.gameObject.GetComponent<LevelControl>();
-        this.level_control.loadLevelData(this.level_data_text);
+        this.level_control.LoadLevelData(this.level_data_text);
 
         this.mapCreator = this.gameObject.GetComponent<MapCreator>();
 

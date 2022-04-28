@@ -81,6 +81,12 @@ public class SoundManager : MonoBehaviour
         audioClips.Clear();
     }
 
+    public void Play(string path, Sound type = Sound.Sfx, float volume = 1.0f)
+    {
+        AudioClip audioClip = GetOrAddAudioClip(path, type);
+        Play(audioClip, type, volume);
+    }
+
     public void Play(AudioClip audioClip, Sound type = Sound.Sfx, float volume = 1.0f)
     {
         if (audioClip == null)
@@ -101,12 +107,6 @@ public class SoundManager : MonoBehaviour
             AudioSource audioSource = audioSources[(int)Sound.Sfx];
             audioSource.PlayOneShot(audioClip, volume);
         }
-    }
-
-    public void Play(string path, Sound type = Sound.Sfx, float volume = 1.0f)
-    {
-        AudioClip audioClip = GetOrAddAudioClip(path, type);
-        Play(audioClip, type, volume);
     }
 
     private AudioClip GetOrAddAudioClip(string path, Sound type)

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct Range
+{ // 범위를 표현하는 구조체.
+    public float min; // 범위의 최솟값.
+    public float max; // 범위의 최댓값.
+};
+
 public class LevelData
 {
-    public struct Range
-    { // 범위를 표현하는 구조체.
-        public float min; // 범위의 최솟값.
-        public float max; // 범위의 최댓값.
-    };
-
     public Range obj_width; // 오브젝트 거리 범위.
     public Range obj_number; // 오브젝트 개수 범위.
     public Range blank_width; // 오브젝트 개수 범위.
@@ -45,7 +45,7 @@ public class LevelControl : MonoBehaviour
 {
     public List<LevelData> level_datas = new List<LevelData>();
 
-    public void loadLevelData(TextAsset level_data_text)
+    public void LoadLevelData(TextAsset level_data_text)
     {
         string level_texts = level_data_text.text; // 텍스트 데이터를 문자열로 가져온다.
         string[] lines = level_texts.Split('\n'); // 개행 코드 '\'마다 분할해서 문자열 배열에 넣는다.

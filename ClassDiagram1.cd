@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ObjectPool&lt;T&gt;">
+    <Position X="7.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAEAACAAAAAAAEAEAAAAIQAAAAAQAgAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\ObjectPooling\Base\ObjectPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Poolable">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAEAAAAAAAAEAAAAgAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ObjectPooling\Base\Poolable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BlockControl" Collapsed="true">
+    <Position X="7.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAEAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ObjectPooling\Block\BlockControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BlockPool" Collapsed="true">
+    <Position X="7.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAEAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Assets\Scripts\ObjectPooling\Block\BlockPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BulletControl" Collapsed="true">
+    <Position X="2.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIAAAAAAAAAAEEEAAAAAABAEAAQQAAAQAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ObjectPooling\Bullet\BulletControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BulletPool" Collapsed="true">
+    <Position X="2.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ObjectPooling\Bullet\BulletPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BombControl" Collapsed="true">
+    <Position X="9.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAEAAAAAAAQAAAQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\ObjectPooling\Obstacles\BombControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BombPool" Collapsed="true">
+    <Position X="9.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ObjectPooling\Obstacles\BombPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyControl" Collapsed="true">
+    <Position X="5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQAIAAgACAYEAAAAgEEEAAAAAABAEAQQAAACBIAQEA=</HashCode>
+      <FileName>Assets\Scripts\ObjectPooling\Obstacles\EnemyControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyPool" Collapsed="true">
+    <Position X="5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ObjectPooling\Obstacles\EnemyPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PowerControl" Collapsed="true">
+    <Position X="11.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAQEAAAAAAAAAAAQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\ObjectPooling\Obstacles\PowerControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PowerPool" Collapsed="true">
+    <Position X="11.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ObjectPooling\Obstacles\PowerPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LevelData">
+    <Position X="9.5" Y="12.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AACAAAAAEIAAAAMAAAAAAAAAAAAABAAIgAAAAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\LevelControl\LevelControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LevelControl">
+    <Position X="7.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Assets\Scripts\LevelControl\LevelControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
