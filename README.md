@@ -47,7 +47,7 @@
 
 # 👉참고 링크
 
-- **유튜브 : [https://www.youtube.com/watch?v=DevAbZc6Ofs](https://www.youtube.com/watch?v=DevAbZc6Ofs)**
+- **유튜브 : [https://www.youtube.com/playlist?list=PLjSAhx-L2n8focZJGNkHP948APNj2nw7A](https://www.youtube.com/playlist?list=PLjSAhx-L2n8focZJGNkHP948APNj2nw7A)**
 - **Git Hub :  [https://github.com/yoonsangmin/RunDodgeShoot](https://github.com/yoonsangmin/RunDodgeShoot)**
 
 ## 영상
