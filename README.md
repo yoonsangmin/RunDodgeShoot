@@ -20,7 +20,7 @@
  
  
 * ✔ Stage Creator: I implemented stage creator that creates map and object contantly with level data.
- * Code Location: https://github.com/yoonsangmin/RunDodgeShoot/blob/main/Assets/Scripts/GameRoot/StageCreator.cs  
+  * Code Location: https://github.com/yoonsangmin/RunDodgeShoot/blob/main/Assets/Scripts/GameRoot/StageCreator.cs  
  
  
 * ✔ Sound Manager: Sound manager is a singleton class that ensures a class has only one instance and provides a global access point. It can load sound resources during running time and loaded resources can reuse.
