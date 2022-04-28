@@ -2,12 +2,12 @@
 
 ## 👉Summary
 
-**[Game title: Run, Dodge, Shoot]** </br>
-**[Genre: Running Action Game]** </br>
-**[Tools: Unity 3D]** </br>
-**[Purpose: For experiencing level design]** </br>
-**[Period: May.2021 - June.2021]** </br>
-**[Head count: 1]** </br>
+**[Game title :  Run, Dodge, Shoot]** </br>
+**[Genre      :  Running Action Game]** </br>
+**[Tools      :  Unity 3D]** </br>
+**[Purpose    :  For experiencing level design]** </br>
+**[Period     :  May.2021 - June.2021]** </br>
+**[Head count :  1]** </br>
 
 ## 👉Implementations
 
