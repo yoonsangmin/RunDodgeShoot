@@ -83,6 +83,7 @@ public class GameRoot : MonoBehaviour
             if (nameField.text != "")
             {
                 RegisterScore();
+                SaveManager.Instance.SaveRank();
                 buttonControl.ToTitleScene();
             }
         }
