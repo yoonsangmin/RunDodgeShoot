@@ -8,6 +8,7 @@
 **[Purpose    :  For experiencing level design]**  
 **[Period     :  May.2021 - June.2021]**  
 **[Head count :  1]**  
+**[Task       :  Game design, Game system implementation, Level design]**  
 
 ## 👉Implementations
 
@@ -50,5 +51,5 @@
 
 ## 👉Game Video
 
-- **유튜브 : [https://www.youtube.com/playlist?list=PLjSAhx-L2n8focZJGNkHP948APNj2nw7A](https://www.youtube.com/playlist?list=PLjSAhx-L2n8focZJGNkHP948APNj2nw7A)**
+- **Youtube : [https://www.youtube.com/playlist?list=PLjSAhx-L2n8focZJGNkHP948APNj2nw7A](https://www.youtube.com/playlist?list=PLjSAhx-L2n8focZJGNkHP948APNj2nw7A)**
 [![Run, Dodge, Shoot](https://img.youtube.com/vi/DevAbZc6Ofs/0.jpg)](https://www.youtube.com/watch?v=DevAbZc6Ofs "Run, Dodge, Shoot")
