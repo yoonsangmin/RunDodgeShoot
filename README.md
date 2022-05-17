@@ -12,7 +12,7 @@
 
 ## 👉Implementations
 
-* ✔ Player Control: I made an enum that represents player's status and I implemented their behavior in the update function using switch statement.
+* ✔ Player Control: I made an enum that represents player's state and I implemented proper behavior according to the state in the update function.
   * Code Location: https://github.com/yoonsangmin/RunDodgeShoot/blob/main/Assets/Scripts/Player/PlayerControl.cs  
 
 * ✔ Level Control: I implemented level control class to parse text file and set level values.
