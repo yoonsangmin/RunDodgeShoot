@@ -31,7 +31,7 @@
   * Code Location: https://github.com/yoonsangmin/RunDodgeShoot/blob/main/Assets/Scripts/Save/SaveManager.cs  
 
 
-## 👉Game Screenshot
+## 👉Game Screenshots
 
 ![1.png](Images/1.png)
 
